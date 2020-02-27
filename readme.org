@@ -11,13 +11,15 @@
 
 ** Installation
 
-~twiddler-read-dotkey~ will require NodeJS to be installed. So far, I've tried to make it very backwards-compatible. ~twiddler-dotkey-org-inbox-and-clear~ is a generic shell script, using Bash. You will need to edit the "Configuration" section of the Bash file to point to your own locations and adjust the Org headline to your liking.
+~twiddler-read-dotkey~ will require NodeJS to be installed. So far, I've tried to make it very backwards-compatible.
+
+~twiddler-dotkey-org-inbox-and-clear~ is a generic shell script, using Bash. You will need to edit the "Configuration" section of the Bash file to point to your own locations and adjust the Org headline to your liking.
 
 ** Tips
 
-*** If you're not sure if you're in untethered mode, hit N+S OOMO again, you should see blinking, as it tries to connect to bluetooth, then hit the chord again and you'll know.
-*** Use an Org Mode shell link to run the script quickly from your agenda. Mine looks like this ~[[shell:/home/user/twiddler-headless/twiddler-dotkey-org-inbox-and-clear][Twiddler Untethered -> Org]]~. I use ~C-c C-o (org-open-at-point)~ to run this once I plug in my Twiddler.
-*** There's no reason not to run this automatically via ~udev~ or ~inotify~ but I have not been able to make this work yet. If you do have success, please share.
+1. If you're not sure if you're in untethered mode, hit N+S OOMO again, you should see blinking, as it tries to connect to bluetooth, then hit the chord again and you'll know.
+2. Use an Org Mode shell link to run the script quickly from your agenda. Mine looks like this ~[[shell:/home/user/twiddler-headless/twiddler-dotkey-org-inbox-and-clear][Twiddler Untethered -> Org]]~. I use ~C-c C-o (org-open-at-point)~ to run this once I plug in my Twiddler.
+3. There's no reason not to run this automatically via ~udev~ or ~inotify~ but I have not been able to make this work yet. If you do have success, please share.
 
 ** Inspiration
 
