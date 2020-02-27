@@ -1,0 +1,115 @@
+#!/usr/bin/env node
+const DEBUG = false;
+// const DEBUG = true;
+const fs = require("fs");
+const path = process.argv[2];
+const bytes = fs.readFileSync(path);
+const scanToAscii =
+{
+  0x04 : ["a", "A"],   /* KEY_A */
+  0x05 : ["b", "B"],   /* KEY_B */
+  0x06 : ["c", "C"],   /* KEY_C */
+  0x07 : ["d", "D"],   /* KEY_D */
+  0x08 : ["e", "E"],   /* KEY_E */
+  0x09 : ["f", "F"],   /* KEY_F */
+  0x0a : ["g", "G"],   /* KEY_G */
+  0x0b : ["h", "H"],   /* KEY_H */
+  0x0c : ["i", "I"],   /* KEY_I */
+  0x0d : ["j", "J"],   /* KEY_J */
+  0x0e : ["k", "K"],   /* KEY_K */
+  0x0f : ["l", "L"],   /* KEY_L */
+  0x10 : ["m", "M"],   /* KEY_M */
+  0x11 : ["n", "N"],   /* KEY_N */
+  0x12 : ["o", "O"],   /* KEY_O */
+  0x13 : ["p", "P"],   /* KEY_P */
+  0x14 : ["q", "Q"],   /* KEY_Q */
+  0x15 : ["r", "R"],   /* KEY_R */
+  0x16 : ["s", "S"],   /* KEY_S */
+  0x17 : ["t", "T"],   /* KEY_T */
+  0x18 : ["u", "U"],   /* KEY_U */
+  0x19 : ["v", "V"],   /* KEY_V */
+  0x1a : ["w", "W"],   /* KEY_W */
+  0x1b : ["x", "X"],   /* KEY_X */
+  0x1c : ["y", "Y"],   /* KEY_Y */
+  0x1d : ["z", "Z"],   /* KEY_Z */
+  0x1e : ["1", "!"],   /* KEY_1 */
+  0x1f : ["2", "@"],   /* KEY_2 */
+  0x20 : ["3", "#"],   /* KEY_3 */
+  0x21 : ["4", "$"],   /* KEY_4 */
+  0x22 : ["5", "%"],   /* KEY_5 */
+  0x23 : ["6", "^"],   /* KEY_6 */
+  0x24 : ["7", "&"],   /* KEY_7 */
+  0x25 : ["8", "*"],   /* KEY_8 */
+  0x26 : ["9", "("],   /* KEY_9 */
+  0x27 : ["0", ")"],   /* KEY_0 */
+  0x2b : ["  ", "  "], /* Tab */
+  0x2c : [" ", " "],   /* Space */
+  0x2d : ["-", "_"],   /* KEY_MINUS */
+  0x2e : ["=", "+"],   /* KEY_EQUAL */
+  0x2f : ["[", "{"],   /* KEY_LEFTBRACE */
+  0x30 : ["]", "}"],   /* KEY_RIGHTBRACE */
+  0x31 : ["\\", "|"],  /* KEY_BACKSLASH */
+  0x33 : [";", ":"],   /* KEY_SEMICOLON */
+  0x34 : ["'", "\""],  /* KEY_APOSTROPHE */
+  0x35 : ["`", "~"],   /* KEY_GRAVE */
+  0x36 : [",", "<"],   /* KEY_COMMA */
+  0x37 : [".", ">"],   /* KEY_DOT */
+  0x38 : ["/", "?"],   /* KEY_SLASH */
+  0x28 : ["\n", "\n"], /* Return */
+  0x29 : ["", ""]      /* Escape */
+};
+
+if (DEBUG && bytes.length % 2) console.warn("Expected even length bytes input");
+if (DEBUG) console.warn("Characters: " + (bytes.length / 2));
+
+let result = [];
+let cursor = 0;
+
+// HID Scan codes reference
+// https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2
+for (let i = 0; i < bytes.length; i += 2)
+{
+  const modifier = bytes[i];
+  const scan     = bytes[i + 1];
+  const shift    = modifier == 0x02 || modifier == 0x20;
+
+  // Debug
+  // str+=`\n[0x${modifier.toString(16)},0x${scan.toString(16)}]:`;
+
+  // Backspace
+  if (scan == 0x2a)
+  {
+    if (DEBUG)
+    {
+      result[cursor++] = "[backspace]";
+    }
+    else
+    {
+      // Move backwards and then overwrite with blank
+      result[--cursor] = " ";
+    }
+  }
+  else
+  {
+    // Map scan to list of unshifted then shifted
+    if (scanToAscii[scan])
+    {
+      result[cursor++] = scanToAscii[scan][shift ? 1 : 0];
+    }
+    else
+    {
+      if (DEBUG)
+      {
+        result[cursor++] =
+          `[Unknown HID 0x${modifier.toString(16)},0x${scan.toString(16)}]`;
+      }
+      else
+      {
+        result[cursor++] = "�"; // Unicode "unknown character
+      }
+    }
+  }
+}
+
+// Finally, print out the result
+console.log(result.join(""));

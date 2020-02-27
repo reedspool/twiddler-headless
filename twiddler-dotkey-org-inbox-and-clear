@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# 1. Use the accompanying reader script to read the Twiddler's TWIDDLER.KEY
+# file which contains the keys typed when in Untethered Re-Chording Mode.
+# 2. Send the ASCII contents to an Org Mode file as a header
+# 3. Delete the TWIDDLER.KEY file off the Twiddler
+#
+# Author: Reed Spool
+
+#
+# Configuration
+#
+
+# Change to where you've installed the node script
+READER_PATH="./twiddler-read-dotkey";
+
+# Change to your org-mode inbox
+ORG_TARGET_PATH="./test.org";
+
+# Change to /media/user/twiddler
+REMOTE_PATH=".";
+
+# This is probably what you want
+DOTKEY="TWIDDLER.KEY";
+
+# Line to insert before contents of TWIDDLER.KEY in your org mode file
+CAPTURE_HEADER="** Twiddler headless input [$(date "+%Y-%m-%d %a %R")]";
+
+#
+# Code
+#
+
+if [[ ! -e "$REMOTE_PATH/" ]]
+then
+    echo "Twiddler file system not found. Is the Twiddler plugged in and on?";
+    exit 1; # Do not proceed
+fi
+
+if [[ ! -f "$REMOTE_PATH/$DOTKEY" ]]
+then
+    echo "Twiddler has no $DOTKEY file. Disregarding.";
+    exit 0; # This is fine, we just didn't use it since last dump.
+fi
+
+echo "$CAPTURE_HEADER" >> "$ORG_TARGET_PATH";
+$READER_PATH $REMOTE_PATH/$DOTKEY >> "$ORG_TARGET_PATH";
+rm $REMOTE_PATH/$DOTKEY;
+echo "Appended entry to $INBOX and deleted $DOTKEY. Happy organizing!";
