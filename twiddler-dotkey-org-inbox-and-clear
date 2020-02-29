@@ -23,6 +23,10 @@ REMOTE_PATH=".";
 # This is probably what you want
 DOTKEY="TWIDDLER.KEY";
 
+# Where to back up just-read TWIDDLER.KEY file before deleting off device
+BACKUP_PATH="./TWIDDLER-$(date "+%Y-%m-%d-%H-%M").KEY";
+# BACKUP_PATH=/dev/null; # Don't backup
+
 # Line to insert before contents of TWIDDLER.KEY in your org mode file
 CAPTURE_HEADER="** Twiddler headless input [$(date "+%Y-%m-%d %a %R")]";
 
@@ -44,5 +48,6 @@ fi
 
 echo "$CAPTURE_HEADER" >> "$ORG_TARGET_PATH";
 $READER_PATH $REMOTE_PATH/$DOTKEY >> "$ORG_TARGET_PATH";
+cp $REMOTE_PATH/$DOTKEY $BACKUP_PATH;
 rm $REMOTE_PATH/$DOTKEY;
 echo "Appended entry to $INBOX and deleted $DOTKEY. Happy organizing!";
