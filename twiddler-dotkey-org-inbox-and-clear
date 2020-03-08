@@ -47,7 +47,7 @@ then
 fi
 
 echo "$CAPTURE_HEADER" >> "$ORG_TARGET_PATH";
-$READER_PATH $REMOTE_PATH/$DOTKEY >> "$ORG_TARGET_PATH";
-cp $REMOTE_PATH/$DOTKEY $BACKUP_PATH;
-rm $REMOTE_PATH/$DOTKEY;
-echo "Appended entry to $INBOX and deleted $DOTKEY. Happy organizing!";
+$READER_PATH "$REMOTE_PATH/$DOTKEY" >> "$ORG_TARGET_PATH";
+cp "$REMOTE_PATH/$DOTKEY" "$BACKUP_PATH";
+rm "$REMOTE_PATH/$DOTKEY";
+echo "Appended entry to $ORG_TARGET_PATH and deleted $DOTKEY. Happy organizing!";
