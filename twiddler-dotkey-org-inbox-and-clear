@@ -13,12 +13,15 @@
 
 # Change to where you've installed the node script
 READER_PATH="./twiddler-read-dotkey";
+READER_PATH="/home/human/dev/projects/twiddler-headless/twiddler-read-dotkey";
 
 # Change to your org-mode inbox
 ORG_TARGET_PATH="./test.org";
+ORG_TARGET_PATH="/home/human/org/inbox.org";
 
 # Change to /media/user/twiddler
 REMOTE_PATH=".";
+REMOTE_PATH="/media/human/C494-6732";
 
 # This is probably what you want
 DOTKEY="TWIDDLER.KEY";
@@ -28,7 +31,7 @@ BACKUP_PATH="./TWIDDLER-$(date "+%Y-%m-%d-%H-%M").KEY";
 # BACKUP_PATH=/dev/null; # Don't backup
 
 # Line to insert before contents of TWIDDLER.KEY in your org mode file
-CAPTURE_HEADER="** Twiddler headless input [$(date "+%Y-%m-%d %a %R")]";
+CAPTURE_HEADER="* Twiddler headless input [$(date "+%Y-%m-%d %a %R")]";
 
 #
 # Code
