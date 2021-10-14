@@ -13,7 +13,7 @@ set -e # Quit on any error
 #
 
 # Change to where you've installed the node script
-READER_PATH="./twiddler-read-dotkey";
+READER_PATH="/home/human/projects/twiddler-headless.git/twiddler-read-dotkey";
 
 # Change to your org-mode inbox
 ORG_TARGET_PATH="./test.org";
