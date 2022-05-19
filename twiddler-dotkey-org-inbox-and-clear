@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e # Quit on any error
+set -eu # Quit on any error
 #
 # 1. Use the accompanying reader script to read the Twiddler's TWIDDLER.KEY
 # file which contains the keys typed when in Untethered Re-Chording Mode.
