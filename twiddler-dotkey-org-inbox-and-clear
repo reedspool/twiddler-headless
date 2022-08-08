@@ -27,7 +27,7 @@ REMOTE_PATH="/media/human/C494-6732";
 DOTKEY="TWIDDLER.KEY";
 
 # Where to back up just-read TWIDDLER.KEY file before deleting off device
-BACKUP_PATH="./TWIDDLER-$(date "+%Y-%m-%d-%H-%M").KEY";
+BACKUP_PATH="/home/human/projects/twiddler-headless.git/TWIDDLER-$(date "+%Y-%m-%d-%H-%M").KEY";
 # BACKUP_PATH=/dev/null; # Don't backup
 
 # Line to insert before contents of TWIDDLER.KEY in your org mode file
