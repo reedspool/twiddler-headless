@@ -73,8 +73,9 @@ for (let i = 0; i < bytes.length; i += 2)
   const scan     = bytes[i + 1];
   const shift    = modifier == 0x02 || modifier == 0x20;
 
-  // Debug
-  // str+=`\n[0x${modifier.toString(16)},0x${scan.toString(16)}]:`;
+  if (DEBUG) {
+    str+=`\n[0x${modifier.toString(16)},0x${scan.toString(16)}]:`;
+  }
 
   // Backspace
   if (scan == 0x2a)
